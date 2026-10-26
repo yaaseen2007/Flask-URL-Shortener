@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}URL Shortener{% endblock %}
+
+{% block content %}
+
+<div class="container my-5">
+
+    <div class="text-center mb-4">
+
+        <h1>Shorten Your URL</h1>
+
+        <p class="text-muted">
+            Turn long links into short, easy-to-share URLs.
+        </p>
+
+    </div>
+
+
+    <form action="{{ url_for('home') }}" method="POST">
+
+        <div class="mb-3">
+
+            <label class="form-label" for="url">
+                Enter your URL
+            </label>
+
+            <input
+                type="url"
+                name="url"
+                class="form-control"
+                id="url"
+                placeholder="Paste your long URL here..."
+                required
+            >
+
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">
+            Shorten URL
+        </button>
+
+    </form>
+
+
+    <h3 class="mt-5">Your URLs</h3>
+
+    <ul class="list-group">
+
+        {% for url in all_urls %}
+
+        <li class="list-group-item">
+
+            <p class="mb-1">
+                {{ url.original_url }}
+            </p>
+
+            <a href="{{ request.host_url }}{{ url.short_url }}">
+                {{ request.host_url }}{{ url.short_url }}
+            </a>
+
+            <a href="{{ url_for('delete_url', url_id=url.id) }}"             
+               class="btn btn-danger float-end">
+                Delete
+            </a>  <!-- <a href="/delete/{{ url.id }}"> -->
+
+        </li>
+
+        {% endfor %}
+
+    </ul>
+
+</div>
+
+{% endblock %}
