@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 
 {% block title %}URL Shortener{% endblock %}
@@ -7,20 +8,15 @@
 <div class="container my-5">
 
     <div class="text-center mb-4">
-
         <h1>Shorten Your URL</h1>
-
         <p class="text-muted">
             Turn long links into short, easy-to-share URLs.
         </p>
-
     </div>
-
 
     <form action="{{ url_for('home') }}" method="POST">
 
         <div class="mb-3">
-
             <label class="form-label" for="url">
                 Enter your URL
             </label>
@@ -33,16 +29,13 @@
                 placeholder="Paste your long URL here..."
                 required
             >
-
         </div>
-
 
         <button type="submit" class="btn btn-primary">
             Shorten URL
         </button>
 
     </form>
-
 
     <h3 class="mt-5">Your URLs</h3>
 
@@ -52,14 +45,28 @@
 
         <li class="list-group-item">
 
-            <a href="{{ request.host_url }}{{ url.short_url }}" target="_blank">
-                {{ url.short_url }}
-            </a>
+            <p class="mb-1">
+                <strong>Short code:</strong> {{ url.short_url }}
+            </p>
 
-            <a href="{{ url_for('delete_url', url_id=url.id) }}"             
-               class="btn btn-danger float-end">
+            <p class="mb-2">
+                <strong>Short URL:</strong>
+                <a href="{{ request.host_url }}{{ url.short_url }}" target="_blank">
+                    {{ request.host_url }}{{ url.short_url }}
+                </a>
+            </p>
+
+            <button
+                type="button"
+                class="btn btn-sm btn-primary"
+                onclick="navigator.clipboard.writeText('{{ request.host_url }}{{ url.short_url }}').then(() => alert('Short URL copied!')).catch(() => alert('Copy failed. Please copy the link manually.'))">
+                Copy Short URL
+            </button>
+
+            <a href="{{ url_for('delete_url', url_id=url.id) }}"
+               class="btn btn-danger btn-sm float-end">
                 Delete
-            </a>  <!-- <a href="/delete/{{ url.id }}"> -->
+            </a>
 
         </li>
 
