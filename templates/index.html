@@ -52,12 +52,8 @@
 
         <li class="list-group-item">
 
-            <p class="mb-1">
-                {{ url.original_url }}
-            </p>
-
-            <a href="{{ request.host_url }}{{ url.short_url }}">
-                {{ request.host_url }}{{ url.short_url }}
+            <a href="{{ request.host_url }}{{ url.short_url }}" target="_blank">
+                {{ request.host_url }}{{ url.short_url }} 
             </a>
 
             <a href="{{ url_for('delete_url', url_id=url.id) }}"             
